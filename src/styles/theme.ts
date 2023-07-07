@@ -25,9 +25,9 @@ export const THEME = {
   },
 
   FONTS: {
-    TITLE_BOLD: "",
-    REGULAR: "",
-    BOLD: ""
+    TITLE_BOLD: "Baloo2_700Bold",
+    REGULAR: "Roboto_400Regular",
+    BOLD: "Roboto_700Bold"
   },
 
   SIZES: {
