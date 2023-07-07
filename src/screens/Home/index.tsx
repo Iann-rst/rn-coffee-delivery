@@ -2,13 +2,15 @@ import React, { useRef, useState } from "react";
 import { FlatList, Image, Text, View, ViewToken } from "react-native";
 
 import { MapPin } from "phosphor-react-native";
-import Animated, { Extrapolate, interpolate, interpolateColor, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
+import Animated, { Extrapolate, SlideInDown, SlideInRight, interpolate, interpolateColor, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 import { Cart } from "../../components/Cart";
 import { Input } from "../../components/Input";
 
 import CoffeeIcon from '../../assets/coffeeBeans.png';
 import { CoffeeCard } from "../../components/CoffeeCard";
+import { CoffeeList } from "../../components/CoffeeList";
 import { coffeeCard } from "../../data/coffeeCard";
+import { coffeeList } from "../../data/coffeeList";
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
 
@@ -34,29 +36,36 @@ export function Home(){
       scrollY.value = event.contentOffset.y
     }
   })
-
   const headerStyles = useAnimatedStyle(()=>{
     return {
       opacity: interpolate(
         scrollY.value,
-        [0, 40, 90],
-        [1, 0, 1],
+        [0, 320, 340],
+        [1, 0.5, 1],
         Extrapolate.CLAMP
       ),
       backgroundColor: interpolateColor(
         scrollY.value,
-        [0, 90],
+        [170, 320],
         [THEME.COLORS.GRAY_100, THEME.COLORS.WHITE],
-      )
+      ),
     }
   })
-
   const headerCityStyles = useAnimatedStyle(()=>{
     return {
       color: interpolateColor(
         scrollY.value,
-        [0, 90],
+        [0, 320],
         [THEME.COLORS.WHITE, THEME.COLORS.GRAY_200]
+      )
+    }
+  })
+  const introStyles = useAnimatedStyle(()=> {
+    return {
+      opacity: interpolate(
+        scrollY.value,
+        [0, 320, 380],
+        [1, 0.5, 0]
       )
     }
   })
@@ -71,44 +80,59 @@ export function Home(){
           <Animated.Text style={[styles.headerCity, headerCityStyles]}>Barreiras, BA</Animated.Text>
         </View>
         <Cart />
-    </Animated.View>
+      </Animated.View>
     
-      <Animated.ScrollView style={{flex: 1}} onScroll={scrollHandler}>
+      <Animated.ScrollView 
+        style={{
+          flex: 1,
+        }} 
+        onScroll={scrollHandler} 
+        showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
+      >
 
-        <View style={styles.intro}>
-          <Text style={styles.title}>Encontre o café perfeito para qualquer hora do dia</Text>
-          <Input />
-          <Image source={CoffeeIcon} style={styles.image} resizeMode="contain"/>
-        </View>
+        <Animated.View style={introStyles}>
+          <View style={styles.intro}>
+            <Text style={styles.title}>Encontre o café perfeito para qualquer hora do dia</Text>
+            <Input />
+            <Image source={CoffeeIcon} style={styles.image} resizeMode="contain"/>
+          </View>
 
-        <View style={{
-          top: -115,
-        }}>
-          <FlatList 
-              contentContainerStyle={{
-                gap: 8,
-                paddingHorizontal: 40, 
-              }}
-              data={coffeeCard} 
-              keyExtractor={(item)=>item.id.toString()}
-              viewabilityConfig={viewabilityConfig}
-              viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-              scrollEventThrottle={16}
-              renderItem={({item, index})=> (
-                <CoffeeCard coffee={item} index={index} currentIndex={visibleIndex}/>
-              )}
-              horizontal 
-              showsHorizontalScrollIndicator={false}
-            />
-        </View>
+          <Animated.View 
+          style={{
+            top: -115,
+          }}
+          entering={SlideInRight.duration(2000)}
+          >
+            <FlatList 
+                contentContainerStyle={{
+                  gap: 8,
+                  paddingHorizontal: 40, 
+                }}
+                data={coffeeCard} 
+                keyExtractor={(item)=>item.id.toString()}
+                viewabilityConfig={viewabilityConfig}
+                viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+                scrollEventThrottle={16}
+                renderItem={({item, index})=> (
+                  <CoffeeCard coffee={item} index={index} currentIndex={visibleIndex}/>
+                )}
+                horizontal 
+                showsHorizontalScrollIndicator={false}
+              />
+          </Animated.View>
+        </Animated.View>
 
         {/* CoffeeList */}
-        <View style={{
-          top: -100,
+        <Animated.View 
+        style={{
+          top: -130,
           paddingHorizontal: 32,
           paddingVertical: 16,
           gap: 16
-        }}>
+        }}
+        entering={SlideInDown.duration(2000)}
+        >
           {/* Section Header */}
           <View style={{
             gap: 12
@@ -123,8 +147,19 @@ export function Home(){
           </View>
 
           {/* List */}
-          
-        </View>
+          {coffeeList.map((item)=> (
+            <View key={item.id}>
+              <Text style={{
+                color: THEME.COLORS.GRAY_400,
+                fontFamily: THEME.FONTS.TITLE_BOLD,
+                fontSize: THEME.SIZES.TITLE_XS
+                }}>{item.category}</Text>
+              {item.coffees.map((coffee)=>(
+                <CoffeeList key={coffee.id} data={coffee}/>
+              ))}
+            </View>
+          ))} 
+        </Animated.View>
 
       </Animated.ScrollView>
     </View>
