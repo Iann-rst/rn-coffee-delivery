@@ -1,31 +1,32 @@
 import { ImageSourcePropType } from 'react-native'
-import irlandesIcon from '../../assets/coffees/irlandes.png'
-import latteIcon from '../../assets/coffees/latte.png'
-import mocaccinoIcon from '../../assets/coffees/mochaccino.png'
+
+import Irlandes from '../../assets/coffees/irlandes.png'
+import Latte from '../../assets/coffees/latte.png'
+import Mocaccino from '../../assets/coffees/mochaccino.png'
 
 export const coffeeCard = [
   {
-    id: 1,
+    id: 4,
     tag: 'tradicional',
     name: 'Latte',
     description: 'Café expresso com o dobro de leite e espuma cremosa.',
     price: 9.90,
-    image: latteIcon as ImageSourcePropType
+    image: Latte as ImageSourcePropType
   },
   {
-    id: 2,
+    id: 7,
     tag: 'Doce',
     name: 'Mocaccino',
     description: 'Café expresso com calda de chocolate, pouco leite e espuma.',
     price: 9.90,
-    image: mocaccinoIcon as ImageSourcePropType
+    image: Mocaccino as ImageSourcePropType
   },
   {
-    id: 3,
+    id: 12,
     tag: 'Especial',
     name: 'Irlandês',
     description: 'Bebida a base de café, úisque irlandês, açúcar e chantily.',
     price: 9.90,
-    image: irlandesIcon as ImageSourcePropType
+    image: Irlandes as ImageSourcePropType
   }
 ]
