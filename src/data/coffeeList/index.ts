@@ -26,6 +26,7 @@ export const coffeeList = [
     coffees: [
       {
         id: 1,
+        type: 1,
         name: 'Expresso Tradicional',
         description: 'O tradicional café feito com água quente e grãos moídos.',
         price: 9.90,
@@ -33,6 +34,7 @@ export const coffeeList = [
       },
       {
         id: 2,
+        type: 1,
         name: 'Expresso Americano',
         description: 'Expresso diluído, menos intenso que o tradicional.',
         price: 9.90,
@@ -40,6 +42,7 @@ export const coffeeList = [
       },
       {
         id: 3,
+        type: 1,
         name: 'Expresso Cremoso',
         description: 'Café expresso tradicional com espuma cremosa.',
         price: 9.90,
@@ -47,6 +50,7 @@ export const coffeeList = [
       },
       {
         id: 4,
+        type: 1,
         name: 'Latte',
         description: 'Café expresso com o dobro de leite e espuma cremosa.',
         price: 9.90,
@@ -54,6 +58,7 @@ export const coffeeList = [
       },
       {
         id: 5,
+        type: 1,
         name: 'Expresso Gelado',
         description: 'Bebida preparada com café expresso e cubos de gelo.',
         price: 9.90,
@@ -68,6 +73,7 @@ export const coffeeList = [
     coffees: [
       {
         id: 6,
+        type: 2,
         name: 'Capuccino',
         description: 'Bebida com canela feita de doses de café, leite e espuma.',
         price: 9.90,
@@ -75,6 +81,7 @@ export const coffeeList = [
       },
       {
           id: 7,
+          type: 2,
           name: 'Mocaccino',
           description: 'Café expresso com calda de chocolate, pouco leite e espuma.',
           price: 9.90,
@@ -82,6 +89,7 @@ export const coffeeList = [
       },
       {
         id: 8,
+        type: 2,
         name: 'Chocolate Quente',
         description: 'Bebida feita com chocolate dissolvido no leite quente e café.',
         price: 9.90,
@@ -96,6 +104,7 @@ export const coffeeList = [
     coffees: [
       {
         id: 9,
+        type: 3,
         name: 'Cubano',
         description: 'Drink gelado de café expresso com rum, creme de leite e hortelã.',
         price: 9.90,
@@ -103,6 +112,7 @@ export const coffeeList = [
       },
       {
         id: 10,
+        type: 3,
         name: 'Havaiano',
         description: 'Bebida adocicada preparada com café e leite de coco.',
         price: 9.90,
@@ -110,6 +120,7 @@ export const coffeeList = [
       },
       {
         id: 11,
+        type: 3,
         name: 'Árabe',
         description: 'Bebida preparada com grãos de café árabe e especiarias.',
         price: 9.90,
@@ -117,6 +128,7 @@ export const coffeeList = [
       },
       {
         id: 12,
+        type: 3,
         name: 'Irlandês',
         description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly.',
         price: 9.90,
