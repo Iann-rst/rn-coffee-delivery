@@ -4,7 +4,7 @@ import { Baloo2_700Bold, useFonts } from '@expo-google-fonts/baloo-2';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 import { Loading } from './src/components/Loading';
-import { Home } from './src/screens/Home';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +27,7 @@ export default function App() {
       barStyle="light-content"
     />
     
-    <Home />
+    <Routes />
   </>
   );
 }
