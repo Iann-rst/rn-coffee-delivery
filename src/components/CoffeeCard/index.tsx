@@ -1,17 +1,19 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, PressableProps, Text, View } from "react-native";
 import { styles } from "./styles";
 
 import { useEffect } from "react";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import { coffeeCard } from "../../data/coffeeCard";
 
-type Props = {
+const PressableAnimated = Animated.createAnimatedComponent(Pressable)
+
+type Props = PressableProps & {
   index: number
   currentIndex: number | null
   coffee: typeof coffeeCard[0]
 }
 
-export function CoffeeCard({index, currentIndex, coffee}: Props){
+export function CoffeeCard({index, currentIndex, coffee, ...rest}: Props){
   const scale = useSharedValue(1)
 
   const animatedContainerStyle = useAnimatedStyle(()=>{
@@ -29,7 +31,10 @@ export function CoffeeCard({index, currentIndex, coffee}: Props){
   }, [currentIndex])
 
   return(
-    <Animated.View style={[styles.container, animatedContainerStyle]}>
+    <PressableAnimated 
+      style={[styles.container, animatedContainerStyle]}
+      {...rest}
+    >
       <Image source={coffee.image} style={styles.image} resizeMode="cover"/>
 
       <View style={styles.tag}>
@@ -42,6 +47,6 @@ export function CoffeeCard({index, currentIndex, coffee}: Props){
       </View>
 
       <Text style={styles.price}>R$ {coffee.price}</Text>
-    </Animated.View>
+    </PressableAnimated>
   )
 }
