@@ -6,16 +6,19 @@ import Animated, { Extrapolate, SlideInDown, SlideInRight, interpolate, interpol
 import { Cart } from "../../components/Cart";
 import { Input } from "../../components/Input";
 
+import { useNavigation } from "@react-navigation/native";
 import CoffeeIcon from '../../assets/coffeeBeans.png';
 import { CoffeeCard } from "../../components/CoffeeCard";
 import { CoffeeList } from "../../components/CoffeeList";
 import { coffeeCard } from "../../data/coffeeCard";
 import { coffeeList } from "../../data/coffeeList";
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
 
 export function Home(){
   const [visibleIndex, setVisibleIndex] = useState<number | null>(0)
+  const {navigate} = useNavigation<AppNavigatorRoutesProps>()
 
   /* Verificar o item que está sendo visível na flatlist */
   const onViewableItemsChanged = (info: {viewableItems: ViewToken[], changed: ViewToken[]})=> {
@@ -69,6 +72,12 @@ export function Home(){
       )
     }
   })
+
+  function goToProductScreen(productId: number){
+    navigate("product", {
+      productId
+    })
+  }
   
   return(
     <View style={styles.container}>
@@ -115,7 +124,12 @@ export function Home(){
                 viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
                 scrollEventThrottle={16}
                 renderItem={({item, index})=> (
-                  <CoffeeCard coffee={item} index={index} currentIndex={visibleIndex}/>
+                  <CoffeeCard 
+                    coffee={item} 
+                    index={index} 
+                    currentIndex={visibleIndex} 
+                    onPress={()=>goToProductScreen(item.id)}
+                  />
                 )}
                 horizontal 
                 showsHorizontalScrollIndicator={false}
@@ -155,7 +169,7 @@ export function Home(){
                 fontSize: THEME.SIZES.TITLE_XS
                 }}>{item.category}</Text>
               {item.coffees.map((coffee)=>(
-                <CoffeeList key={coffee.id} data={coffee}/>
+                <CoffeeList key={coffee.id} data={coffee} onPress={()=>goToProductScreen(coffee.id)}/>
               ))}
             </View>
           ))} 
