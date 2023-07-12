@@ -17,7 +17,7 @@ const {Navigator, Screen} = createNativeStackNavigator<RootStackParamList>()
 
 export function AppRoutes(){
   return(
-    <Navigator screenOptions={{headerShown: false}}>
+    <Navigator screenOptions={{headerShown: false, animation: "fade"}}>
       <Screen name='home' component={Home}/>
       <Screen name='product' component={Product}/>
       <Screen name='cart' component={Cart}/>
