@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { FlatList, Image, Text, View, ViewToken } from "react-native";
 
 import { MapPin } from "phosphor-react-native";
@@ -6,19 +6,23 @@ import Animated, { Extrapolate, SlideInDown, SlideInRight, interpolate, interpol
 import { Cart } from "../../components/Cart";
 import { Input } from "../../components/Input";
 
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import CoffeeIcon from '../../assets/coffeeBeans.png';
 import { CoffeeCard } from "../../components/CoffeeCard";
 import { CoffeeList } from "../../components/CoffeeList";
 import { coffeeCard } from "../../data/coffeeCard";
 import { coffeeList } from "../../data/coffeeList";
+import { useCart } from "../../hooks/useCart";
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
+import { CoffeeProps } from "../../storage/storageCart";
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
 
 export function Home(){
   const [visibleIndex, setVisibleIndex] = useState<number | null>(0)
   const {navigate} = useNavigation<AppNavigatorRoutesProps>()
+  const [coffeesCart, setCoffeesCart] = useState<CoffeeProps[]>([])
+  const {fetchCoffeesCart} = useCart()
 
   /* Verificar o item que está sendo visível na flatlist */
   const onViewableItemsChanged = (info: {viewableItems: ViewToken[], changed: ViewToken[]})=> {
@@ -78,6 +82,20 @@ export function Home(){
       productId
     })
   }
+
+  async function getCoffeesCart(){
+    try {
+      const coffees = await fetchCoffeesCart() 
+      setCoffeesCart(coffees)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useFocusEffect(useCallback(()=> {
+    getCoffeesCart()
+  }, []
+  ))
   
   return(
     <View style={styles.container}>
@@ -88,7 +106,7 @@ export function Home(){
           <MapPin size={20} weight='fill' color={THEME.COLORS.PURPLE}/>
           <Animated.Text style={[styles.headerCity, headerCityStyles]}>Barreiras, BA</Animated.Text>
         </View>
-        <Cart />
+        <Cart quantityItemsCart={coffeesCart.length} onPress={()=>navigate('cart')}/>
       </Animated.View>
     
       <Animated.ScrollView 
