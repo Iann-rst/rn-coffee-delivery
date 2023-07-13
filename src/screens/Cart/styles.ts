@@ -52,5 +52,17 @@ export const styles = StyleSheet.create({
     fontFamily: THEME.FONTS.TITLE_BOLD,
     fontSize: THEME.SIZES.TEXT_MD,
     color: THEME.COLORS.GRAY_200
+  },
+
+  swipeableContainer: {
+    width: '100%',
+    backgroundColor: THEME.COLORS.RED_LIGHT,
+  },
+  
+  swipeableRemove: {
+    width: 117,
+    height: 117,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
