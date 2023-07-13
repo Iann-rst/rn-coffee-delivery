@@ -1,11 +1,11 @@
-import { Text, View } from "react-native";
+import { ImageSourcePropType, Text, View } from "react-native";
 import { Header } from "../../components/Header";
 import { Tag } from "../../components/Tag";
 
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
 
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { Coffee } from "../../components/Coffee";
@@ -13,6 +13,9 @@ import { Counter } from "../../components/Counter";
 import { Loading } from "../../components/Loading";
 import { Options } from "../../components/Options";
 import { coffeeList } from "../../data/coffeeList";
+import { useCart } from "../../hooks/useCart";
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
+import { CoffeeProps } from "../../storage/storageCart";
 
 interface ProductParams {
   productId: number
@@ -24,12 +27,14 @@ type ProductProps = {
   name: string;
   description: string;
   price: number;
+  image: ImageSourcePropType
 }
 
 const TYPE_COFFEE = ['tradicional', 'doce', 'especial']
 
 
 export function Product(){
+  const {saveCoffeeCart} = useCart()
   const [isLoading, setIsLoading] = useState(true);
   const [coffee, setCoffee] = useState({} as ProductProps)
   const label = TYPE_COFFEE[coffee.type - 1]
@@ -40,12 +45,36 @@ export function Product(){
   const {params} = useRoute()
   const {productId} = params as ProductParams
 
+  const {navigate} = useNavigation<AppNavigatorRoutesProps>()
+
   function handleIncrement(){
     setCount(prevState => prevState + 1)
   }
 
   function handleDecrement(){
     setCount(prevState => prevState - 1)
+  }
+
+  async function handleAddCoffeeCart(){
+    if(options!==null){
+      try {
+        const newCoffee = {
+          id: new Date().getTime().toString(),
+          productId: coffee.id,
+          name: coffee.name,
+          price: coffee.price,
+          size: options,
+          image: coffee.image,
+          qtd: count
+        } as CoffeeProps
+
+        await saveCoffeeCart(newCoffee)
+        navigate("cart")
+        
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 
   useEffect(()=> {
@@ -130,6 +159,7 @@ export function Product(){
               type="PURPLE"
               disabled={options===null}
               isChecked={options!==null}
+              onPress={handleAddCoffeeCart}
             />
           </View>
         </View>
