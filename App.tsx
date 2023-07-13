@@ -4,6 +4,7 @@ import { Baloo2_700Bold, useFonts } from '@expo-google-fonts/baloo-2';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 import { Loading } from './src/components/Loading';
+import { CartContextProvider } from './src/context/cart';
 import { Routes } from './src/routes';
 
 export default function App() {
@@ -21,13 +22,15 @@ export default function App() {
   
   return (
   <>
-    <StatusBar 
-      backgroundColor="transparent"
-      translucent 
-      barStyle="light-content"
-    />
-    
-    <Routes />
+    <CartContextProvider>
+      <StatusBar 
+        backgroundColor="transparent"
+        translucent 
+        barStyle="light-content"
+      />
+      
+      <Routes />
+    </CartContextProvider>
   </>
   );
 }
