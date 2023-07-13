@@ -3,8 +3,8 @@ import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
 
 const TYPE_COLOR = {
-  PURPLE: THEME.COLORS.PURPLE,
-  YELLOW: THEME.COLORS.YELLOW
+  PURPLE: THEME.COLORS.PURPLE_DARK,
+  YELLOW: THEME.COLORS.YELLOW_DARK
 }
 
 type Props = TouchableOpacityProps & {
@@ -17,7 +17,7 @@ export function Button(
 {
   title, 
   type, 
-  isChecked = false,
+  isChecked = true,
   ...rest
 }:Props){
   

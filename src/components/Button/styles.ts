@@ -4,6 +4,8 @@ import { THEME } from "../../styles/theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    minHeight: 46,
+    maxHeight: 46,
     borderRadius: 6,
     paddingHorizontal: 8,
     paddingVertical: 12,
