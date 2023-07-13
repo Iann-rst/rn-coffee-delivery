@@ -1,4 +1,6 @@
 import { StatusBar } from 'react-native';
+import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { Baloo2_700Bold, useFonts } from '@expo-google-fonts/baloo-2';
 import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
@@ -21,7 +23,7 @@ export default function App() {
   }
   
   return (
-  <>
+  <GestureHandlerRootView style={{flex: 1}}>
     <CartContextProvider>
       <StatusBar 
         backgroundColor="transparent"
@@ -31,6 +33,6 @@ export default function App() {
       
       <Routes />
     </CartContextProvider>
-  </>
+  </GestureHandlerRootView>
   );
 }
