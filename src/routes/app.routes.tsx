@@ -13,15 +13,17 @@ type RootStackParamList = {
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<RootStackParamList>
 
-const {Navigator, Screen} = createNativeStackNavigator<RootStackParamList>()
+const {Navigator, Screen, Group} = createNativeStackNavigator<RootStackParamList>()
 
 export function AppRoutes(){
   return(
     <Navigator screenOptions={{headerShown: false, animation: "fade"}}>
       <Screen name='home' component={Home}/>
       <Screen name='product' component={Product}/>
-      <Screen name='cart' component={Cart}/>
-      <Screen name='finish' component={Finish}/>
+      <Group screenOptions={{gestureEnabled: false}}>
+        <Screen name='cart' component={Cart}/>
+        <Screen name='finish' component={Finish}/>
+      </Group>
     </Navigator>
   )
 }

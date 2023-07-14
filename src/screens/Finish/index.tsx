@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { Dimensions, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { BackHandler, Dimensions, Text, View } from "react-native";
 import Animated, { Keyframe, SlideInLeft, runOnJS } from "react-native-reanimated";
 
 import { Button } from "../../components/Button";
@@ -54,14 +54,29 @@ export function Finish(){
     }
   })
 
-  async function handleFinish(){
-    try {
-      await cartRemoveAll()
+  function handleFinish(){
       navigate("home")
-    } catch (error) {
-      console.log(error)
-    }
+      return true
   }
+
+
+  useEffect(()=>{
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleFinish)
+
+    return () => backHandler.remove()
+  },[])
+
+  useEffect(()=>{
+    async function handleConfirme(){
+      try {
+        await cartRemoveAll()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    handleConfirme()
+  },[])
 
   return(
     <View style={styles.container}>

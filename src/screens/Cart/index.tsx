@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, BackHandler, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import Animated, { Layout, SlideInRight, SlideOutRight } from "react-native-reanimated";
 
@@ -65,6 +65,18 @@ export function Cart(){
       ]
     )
   }
+
+  function handleFinish(){
+    navigate("home")
+    return true
+}
+
+
+useEffect(()=>{
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', handleFinish)
+
+  return () => backHandler.remove()
+},[])
 
   useEffect(()=>{
     fetchData()
