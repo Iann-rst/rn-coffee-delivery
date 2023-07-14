@@ -148,6 +148,7 @@ export function Cart(){
               title="Confirmar pedido" 
               type="YELLOW" 
               activeOpacity={0.6}
+              onPress={()=>navigate("finish")}
             />
           </View>
         </>
