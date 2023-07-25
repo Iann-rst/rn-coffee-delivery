@@ -9,9 +9,13 @@ Utilizando animações e microinterações.
 # :camera: Screenshots
 
 <div align="center">
-  <h1>Home</h1>
-  <video src="https://github.com/Iann-rst/rn-coffee-delivery/assets/48128325/da1d09e2-875c-4ba9-b362-8b9b82216642" type="video/mp4"/>
+  <h1>RN Coffee Delivery</h1>
+  <video src="https://github.com/Iann-rst/rn-coffee-delivery/assets/48128325/1b5b5892-744a-4c2b-b472-0a6267511929" type="video/mp4"/>
 </div>
+
+
+
+
 
 
 
